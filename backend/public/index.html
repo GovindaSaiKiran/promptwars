@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart IPL Stadium Experience</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="background-effects">
+        <div class="glow-orb orb-1"></div>
+        <div class="glow-orb orb-2"></div>
+        <div class="glow-orb orb-3"></div>
+    </div>
+
+    <nav class="navbar glass-panel">
+        <div class="logo">
+            <i class="fa-solid fa-stadium"></i>
+            <span>SmartStadium <span class="highlight">IPL</span></span>
+        </div>
+        <div class="nav-links">
+            <a href="#" class="active"><i class="fa-solid fa-chart-line"></i> Dashboard</a>
+            <a href="#"><i class="fa-solid fa-map-location-dot"></i> Map</a>
+            <a href="#"><i class="fa-solid fa-ticket"></i> Tickets</a>
+            <a href="#"><i class="fa-regular fa-user"></i> Profile</a>
+        </div>
+        <div class="mobile-menu-btn">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+    </nav>
+
+    <main class="dashboard-grid">
+        <!-- Live Cricket Hub -->
+        <section class="live-hub glass-panel">
+            <header class="section-header">
+                <h2><i class="fa-solid fa-tower-broadcast live-icon"></i> Live Match Center</h2>
+                <div class="pulse-indicator">LIVE</div>
+            </header>
+            <div id="live-match-container" class="match-container">
+                <div class="loader"></div>
+            </div>
+            
+            <div class="news-section">
+                <h3>Latest Updates</h3>
+                <ul id="news-list" class="news-list">
+                    <!-- News items will be injected here -->
+                </ul>
+            </div>
+        </section>
+
+        <!-- Stadium Operations Map -->
+        <section class="stadium-ops glass-panel">
+            <header class="section-header">
+                <h2><i class="fa-solid fa-street-view"></i> Real-time Operations</h2>
+                <div class="auto-update-status">Last updated: <span id="last-update-time">Just now</span></div>
+            </header>
+            
+            <div class="stadium-visualization">
+                <div class="stadium-map">
+                    <!-- SVG map representing the stadium -->
+                    <div class="pitch"></div>
+                    
+                    <div class="zone north-stand" data-zone="North Stand">
+                        <span class="zone-label">North</span>
+                        <div class="zone-stats">
+                            <i class="fa-solid fa-users"></i> <span class="density-val">--%</span>
+                        </div>
+                    </div>
+                    <div class="zone south-pavilion" data-zone="South Pavilion">
+                        <span class="zone-label">South (Pavilion)</span>
+                        <div class="zone-stats">
+                            <i class="fa-solid fa-users"></i> <span class="density-val">--%</span>
+                        </div>
+                    </div>
+                    <div class="zone east-stand" data-zone="East Stand">
+                        <span class="zone-label">East</span>
+                        <div class="zone-stats">
+                            <i class="fa-solid fa-users"></i> <span class="density-val">--%</span>
+                        </div>
+                    </div>
+                    <div class="zone west-stand" data-zone="West Stand">
+                        <span class="zone-label">West</span>
+                        <div class="zone-stats">
+                            <i class="fa-solid fa-users"></i> <span class="density-val">--%</span>
+                        </div>
+                    </div>
+                    <div class="zone vip-lounge" data-zone="VIP Lounge">
+                        <span class="zone-label">VIP</span>
+                        <div class="zone-stats">
+                            <i class="fa-solid fa-users"></i> <span class="density-val">--%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ops-details">
+                <h3>Facilities Status</h3>
+                <div class="facilities-grid" id="facilities-container">
+                    <!-- Facility cards will be injected here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Smart Routing / Recommendations -->
+        <section class="smart-routing glass-panel">
+            <header class="section-header">
+                <h2><i class="fa-solid fa-route"></i> Smart Assistant</h2>
+            </header>
+            <div class="recommendations">
+                <div class="rec-card warning">
+                    <div class="rec-icon"><i class="fa-solid fa-person-walking-arrow-right"></i></div>
+                    <div class="rec-content">
+                        <h4>High Traffic Alert</h4>
+                        <p>Gate 4 is experiencing heavy crowd. Please use Gate 2 for faster exit.</p>
+                    </div>
+                </div>
+                <div class="rec-card success">
+                    <div class="rec-icon"><i class="fa-solid fa-burger"></i></div>
+                    <div class="rec-content">
+                        <h4>Concession Express</h4>
+                        <p>West Stand food court has only a 5 min wait right now.</p>
+                    </div>
+                </div>
+                <div class="rec-card info">
+                    <div class="rec-icon"><i class="fa-solid fa-cloud-sun"></i></div>
+                    <div class="rec-content">
+                        <h4>Weather Update</h4>
+                        <p>Clear skies for the next 2 hours. Temperature 28°C.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
