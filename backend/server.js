@@ -3,11 +3,47 @@ const cors = require('cors');
 const axios = require('axios');
 const cheerio = require('cheerio');
 const path = require('path');
+const helmet = require('helmet');
+const compression = require('compression');
+const rateLimit = require('express-rate-limit');
+const winston = require('winston');
+const {LoggingWinston} = require('@google-cloud/logging-winston');
+
+// Setup Google Cloud Logging using Winston
+const transports = [new winston.transports.Console()];
+if (process.env.NODE_ENV !== 'test') {
+  transports.push(new LoggingWinston());
+}
+
+const logger = winston.createLogger({
+  level: 'info',
+  transports,
+});
 
 const app = express();
 const PORT = process.env.PORT || 8080; // Cloud run default is 8080
 
+// Security & Efficiency Middlewares
+app.use(helmet({
+  contentSecurityPolicy: false, // Disabled for simplicity in demo, but should be configured in prod
+}));
+app.use(compression());
+
+// Rate Limiting
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // limit each IP to 100 requests per windowMs
+  message: { success: false, message: 'Too many requests, please try again later.' }
+});
+app.use('/api/', limiter);
+
 app.use(cors());
+
+// Log incoming requests
+app.use((req, res, next) => {
+  logger.info(`Received ${req.method} request for ${req.url}`);
+  next();
+});
 
 // Serve static frontend files
 app.use(express.static(path.join(__dirname, 'public')));
@@ -93,6 +129,10 @@ app.get('/api/stadium-status', (req, res) => {
     res.json({ success: true, data: status });
 });
 
-app.listen(PORT, () => {
-    console.log(`Backend server running on http://localhost:${PORT}`);
-});
+if (require.main === module) {
+    app.listen(PORT, () => {
+        logger.info(`Backend server running on http://localhost:${PORT}`);
+    });
+}
+
+module.exports = app;
