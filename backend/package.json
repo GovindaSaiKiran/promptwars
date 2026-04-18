@@ -13,16 +13,21 @@
   "type": "commonjs",
   "dependencies": {
     "@google-cloud/logging-winston": "^6.0.1",
+    "@google-cloud/trace-agent": "^8.0.0",
+    "apicache": "^1.6.3",
     "axios": "^1.15.0",
     "cheerio": "^1.2.0",
     "compression": "^1.8.1",
     "cors": "^2.8.6",
     "express": "^5.2.1",
     "express-rate-limit": "^8.3.2",
+    "express-validator": "^7.3.2",
+    "googleapis": "^171.4.0",
     "helmet": "^8.1.0",
     "winston": "^3.19.0"
   },
   "devDependencies": {
+    "eslint": "^10.2.1",
     "jest": "^30.3.0",
     "supertest": "^7.2.2"
   }

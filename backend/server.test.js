@@ -52,4 +52,25 @@ describe('Smart Stadium API Endpoints', () => {
       expect(res2.statusCode).toEqual(200);
     });
   });
+  describe('Input Validation & Edge Cases', () => {
+    it('should return 400 if zone parameter is invalid type', async () => {
+      // Pass a string shorter than 3 characters to trigger express-validator error
+      const res = await request(app).get('/api/stadium-status?zone=ab');
+      expect(res.statusCode).toEqual(400);
+      expect(res.body).toHaveProperty('success', false);
+      expect(res.body).toHaveProperty('errors');
+    });
+
+    it('should return 404 for unknown endpoints', async () => {
+      const res = await request(app).get('/api/unknown-endpoint');
+      expect(res.statusCode).toEqual(404);
+    });
+
+    it('should return specific zone if valid zone is requested', async () => {
+      const res = await request(app).get('/api/stadium-status?zone=VIP%20Lounge');
+      expect(res.statusCode).toEqual(200);
+      expect(res.body.data.length).toEqual(1);
+      expect(res.body.data[0].zone).toEqual('VIP Lounge');
+    });
+  });
 });

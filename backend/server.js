@@ -1,3 +1,8 @@
+// Start Google Cloud Trace for performance monitoring
+if (process.env.NODE_ENV !== 'test') {
+  require('@google-cloud/trace-agent').start();
+}
+
 const express = require('express');
 const cors = require('cors');
 const axios = require('axios');
@@ -8,6 +13,11 @@ const compression = require('compression');
 const rateLimit = require('express-rate-limit');
 const winston = require('winston');
 const {LoggingWinston} = require('@google-cloud/logging-winston');
+const apicache = require('apicache');
+const { query, validationResult } = require('express-validator');
+
+// Initialize Cache
+const cache = apicache.middleware;
 
 // Setup Google Cloud Logging using Winston
 const transports = [new winston.transports.Console()];
@@ -37,7 +47,10 @@ const limiter = rateLimit({
 });
 app.use('/api/', limiter);
 
-app.use(cors());
+app.use(cors({
+  origin: '*', // For demo purposes, allow all. In prod, restrict to specific domains.
+  methods: ['GET', 'POST']
+}));
 
 // Log incoming requests
 app.use((req, res, next) => {
@@ -89,7 +102,7 @@ function generateMockNews() {
     ];
 }
 
-app.get('/api/live-scores', async (req, res) => {
+app.get('/api/live-scores', cache('30 seconds'), async (req, res) => {
     try {
         // Here we would normally scrape Cricbuzz:
         // const response = await axios.get('https://www.cricbuzz.com/cricket-match/live-scores');
@@ -105,7 +118,7 @@ app.get('/api/live-scores', async (req, res) => {
     }
 });
 
-app.get('/api/news', async (req, res) => {
+app.get('/api/news', cache('1 minute'), async (req, res) => {
     try {
         // Scrape logic would go here
         const data = generateMockNews();
@@ -116,9 +129,23 @@ app.get('/api/news', async (req, res) => {
     }
 });
 
-// Endpoint for stadium density/wait times (simulated)
-app.get('/api/stadium-status', (req, res) => {
-    const zones = ['North Stand', 'South Pavilion', 'East Stand', 'West Stand', 'VIP Lounge'];
+// Endpoint for stadium density/wait times (simulated) with validation
+app.get('/api/stadium-status', [
+    query('zone').optional().isString().isLength({ min: 3, max: 50 }).trim().escape()
+], (req, res) => {
+    // Validate request
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ success: false, errors: errors.array() });
+    }
+
+    const requestedZone = req.query.zone;
+    let zones = ['North Stand', 'South Pavilion', 'East Stand', 'West Stand', 'VIP Lounge'];
+    
+    if (requestedZone && zones.includes(requestedZone)) {
+        zones = [requestedZone];
+    }
+
     const status = zones.map(zone => ({
         zone,
         density: Math.floor(Math.random() * 100), // 0 to 100%
