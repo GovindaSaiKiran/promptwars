@@ -1,4 +1,7 @@
-const API_BASE_URL = '/api';
+// Intelligent API routing: Use Cloud Run backend if hosted on GitHub Pages, otherwise use relative path
+const API_BASE_URL = window.location.hostname.includes('github.io') 
+    ? 'https://smart-stadium-dashboard-770201920290.us-central1.run.app/api' 
+    : '/api';
 
 // DOM Elements
 const matchContainer = document.getElementById('live-match-container');
