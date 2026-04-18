@@ -22,17 +22,18 @@
             <span>SmartStadium <span class="highlight">IPL</span></span>
         </div>
         <div class="nav-links" role="menubar">
-            <a href="#" class="active" role="menuitem" aria-current="page"><i class="fa-solid fa-chart-line" aria-hidden="true"></i> Dashboard</a>
-            <a href="#" role="menuitem"><i class="fa-solid fa-map-location-dot" aria-hidden="true"></i> Map</a>
-            <a href="#" role="menuitem"><i class="fa-solid fa-ticket" aria-hidden="true"></i> Tickets</a>
-            <a href="#" role="menuitem"><i class="fa-regular fa-user" aria-hidden="true"></i> Profile</a>
+            <a href="#" class="nav-btn active" data-target="view-dashboard" role="menuitem" aria-current="page"><i class="fa-solid fa-chart-line" aria-hidden="true"></i> Dashboard</a>
+            <a href="#" class="nav-btn" data-target="view-map" role="menuitem"><i class="fa-solid fa-map-location-dot" aria-hidden="true"></i> Map</a>
+            <a href="#" class="nav-btn" data-target="view-tickets" role="menuitem"><i class="fa-solid fa-ticket" aria-hidden="true"></i> Tickets</a>
+            <a href="#" class="nav-btn" data-target="view-profile" role="menuitem"><i class="fa-regular fa-user" aria-hidden="true"></i> Profile</a>
         </div>
         <button class="mobile-menu-btn" aria-label="Toggle mobile menu" aria-expanded="false">
             <i class="fa-solid fa-bars" aria-hidden="true"></i>
         </button>
     </nav>
 
-    <main class="dashboard-grid" id="main-content">
+    <!-- Dashboard View -->
+    <main class="dashboard-grid view-section active-view" id="view-dashboard">
         <!-- Live Cricket Hub -->
         <section class="live-hub glass-panel" aria-labelledby="live-hub-heading">
             <header class="section-header">
@@ -129,6 +130,112 @@
                     <div class="rec-content">
                         <h4>Weather Update</h4>
                         <p>Clear skies for the next 2 hours. Temperature 28°C.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Map View -->
+    <main class="map-grid view-section" id="view-map" style="display: none;">
+        <section class="full-map-section glass-panel">
+            <header class="section-header">
+                <h2><i class="fa-solid fa-map" aria-hidden="true"></i> M. Chinnaswamy Stadium Blueprint</h2>
+            </header>
+            <div class="blueprint-container">
+                <img src="https://cdn.shopify.com/s/files/1/0278/4565/6649/files/WhatsApp_Image_2023-10-02_at_18.06.17.webp?v=1696250376" alt="Stadium Blueprint" class="blueprint-img">
+            </div>
+        </section>
+    </main>
+
+    <!-- Tickets View -->
+    <main class="tickets-grid view-section" id="view-tickets" style="display: none;">
+        <section class="tickets-section">
+            <div class="ticket-card glass-panel">
+                <div class="ticket-hero">
+                    <img src="https://i0.wp.com/netzeroindia.org/wp-content/uploads/2025/04/RCB-Tickets.png" alt="RCB Ticket Header">
+                </div>
+                <div class="ticket-body">
+                    <div class="ticket-row">
+                        <div class="ticket-info">
+                            <span class="label">Match</span>
+                            <span class="value">RCB vs CSK</span>
+                        </div>
+                        <div class="ticket-info">
+                            <span class="label">Date</span>
+                            <span class="value">April 20, 2026</span>
+                        </div>
+                    </div>
+                    <div class="ticket-row">
+                        <div class="ticket-info">
+                            <span class="label">Venue</span>
+                            <span class="value">M. Chinnaswamy</span>
+                        </div>
+                        <div class="ticket-info">
+                            <span class="label">Time</span>
+                            <span class="value">07:30 PM</span>
+                        </div>
+                    </div>
+                    <div class="ticket-seats">
+                        <div class="seat-info"><span class="label">Gate</span><span class="value highlight">4</span></div>
+                        <div class="seat-info"><span class="label">Stand</span><span class="value highlight">North</span></div>
+                        <div class="seat-info"><span class="label">Row</span><span class="value highlight">M</span></div>
+                        <div class="seat-info"><span class="label">Seat</span><span class="value highlight">22</span></div>
+                    </div>
+                </div>
+                <div class="ticket-footer">
+                    <div class="barcode">
+                        <i class="fa-solid fa-barcode"></i>
+                        <span>SCAN AT ENTRY</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Profile View -->
+    <main class="profile-grid view-section" id="view-profile" style="display: none;">
+        <section class="profile-header glass-panel">
+            <div class="profile-info">
+                <div class="avatar"><i class="fa-solid fa-user-astronaut"></i></div>
+                <div class="user-details">
+                    <h2>Rahul Sharma</h2>
+                    <span class="badge highlight"><i class="fa-solid fa-crown"></i> Super Fan</span>
+                </div>
+            </div>
+            <div class="loyalty-stats">
+                <div class="stat"><span class="val">4,250</span><span class="lbl">Points</span></div>
+                <div class="stat"><span class="val">12</span><span class="lbl">Matches</span></div>
+            </div>
+        </section>
+        
+        <section class="match-history glass-panel">
+            <header class="section-header">
+                <h2><i class="fa-solid fa-clock-rotate-left"></i> Match History</h2>
+            </header>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot success"></div>
+                    <div class="timeline-content">
+                        <h4>RCB vs MI</h4>
+                        <span class="time">April 5, 2026</span>
+                        <p>Attended · North Stand · <i class="fa-solid fa-burger"></i> Ordered Pizza</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot primary"></div>
+                    <div class="timeline-content">
+                        <h4>RCB vs KKR</h4>
+                        <span class="time">March 28, 2026</span>
+                        <p>Attended · VIP Lounge</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot muted"></div>
+                    <div class="timeline-content">
+                        <h4>RCB vs SRH</h4>
+                        <span class="time">May 15, 2025</span>
+                        <p>Attended · East Stand</p>
                     </div>
                 </div>
             </div>

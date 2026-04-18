@@ -176,3 +176,32 @@ function init() {
 
 // Run init when DOM is loaded
 document.addEventListener('DOMContentLoaded', init);
+
+// --- SPA Routing Logic ---
+const navButtons = document.querySelectorAll('.nav-btn');
+const views = document.querySelectorAll('.view-section');
+
+navButtons.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        
+        // Remove active class from all buttons
+        navButtons.forEach(b => b.classList.remove('active'));
+        // Add active class to clicked button
+        btn.classList.add('active');
+        
+        // Hide all views
+        views.forEach(v => {
+            v.style.display = 'none';
+            v.classList.remove('active-view');
+        });
+        
+        // Show target view
+        const targetId = btn.getAttribute('data-target');
+        const targetView = document.getElementById(targetId);
+        if (targetView) {
+            targetView.style.display = targetId === 'view-dashboard' ? 'grid' : 'flex';
+            targetView.classList.add('active-view');
+        }
+    });
+});
